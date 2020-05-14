@@ -34,6 +34,9 @@
 								<div class="ui checkbox">
 									<input name="private" type="checkbox" {{if .Repository.IsPrivate}}checked{{end}}>
 									<label>{{.i18n.Tr "repo.visiblity_helper" | Safe}} {{if .Repository.NumForks}}<span class="text red">{{.i18n.Tr "repo.visiblity_fork_helper"}}</span>{{end}}</label>
+								</div><div class="ui checkbox">
+									<input name="unlisted" type="checkbox" {{if .Repository.IsUnlisted}}checked{{end}}>
+									<label>{{.i18n.Tr "repo.unlisted_helper" | Safe}} {{if .Repository.NumForks}}<span class="text red">{{.i18n.Tr "repo.visiblity_fork_helper"}}</span>{{end}}</label>
 								</div>
 							</div>
 						{{end}}
