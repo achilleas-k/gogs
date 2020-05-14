@@ -59,8 +59,8 @@ type Access struct {
 
 func userAccessMode(e Engine, userID int64, repo *Repository) (AccessMode, error) {
 	mode := AccessModeNone
-	// Everyone has read access to public repository
-	if !repo.IsPrivate {
+	// Everyone has read access to non-private (public or unlisted) repositories
+	if repo.Visibility != RepoVisibilityPrivate {
 		mode = AccessModeRead
 	}
 

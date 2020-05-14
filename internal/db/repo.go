@@ -43,6 +43,14 @@ import (
 // REPO_AVATAR_URL_PREFIX is used to identify a URL is to access repository avatar.
 const REPO_AVATAR_URL_PREFIX = "repo-avatars"
 
+type RepoVisibility int
+
+const (
+	RepoVisibilityPrivate RepoVisibility = iota
+	RepoVisibilityUnlisted
+	RepoVisibilityPublic
+)
+
 var repoWorkingPool = sync.NewExclusivePool()
 
 var (
@@ -172,6 +180,8 @@ type Repository struct {
 	NumClosedMilestones int `xorm:"NOT NULL DEFAULT 0" gorm:"NOT NULL;DEFAULT:0"`
 	NumOpenMilestones   int `xorm:"-" gorm:"-" json:"-"`
 	NumTags             int `xorm:"-" gorm:"-" json:"-"`
+
+	Visibility RepoVisibility
 
 	IsPrivate  bool
 	IsUnlisted bool
@@ -1485,7 +1495,7 @@ func updateRepository(e Engine, repo *Repository, visibilityChanged bool) (err e
 		}
 
 		// Change visibility of generated actions
-		if _, err = e.Where("repo_id = ?", repo.ID).Cols("is_private").Update(&Action{IsPrivate: repo.IsPrivate}); err != nil {
+		if _, err = e.Where("repo_id = ?", repo.ID).Cols("is_private").Update(&Action{IsPrivate: repo.Visibility != RepoVisibilityPublic}); err != nil {
 			return fmt.Errorf("change action visibility of repository: %v", err)
 		}
 	}

@@ -39,6 +39,27 @@
 									<label>{{.i18n.Tr "repo.unlisted_helper" | Safe}} {{if .Repository.NumForks}}<span class="text red">{{.i18n.Tr "repo.visiblity_fork_helper"}}</span>{{end}}</label>
 								</div>
 							</div>
+							<div class="inline fields">
+								<label>{{.i18n.Tr "repo.visibility"}}</label>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input class="hidden" tabindex="0" name="repo_visibility" type="radio" value=2  {{if eq .Repository.Visibility 2}} checked=""{{end}}/>
+										<label>Public</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input class="hidden" tabindex="0" name="repo_visibility" type="radio" value=1 {{if eq .Repository.Visibility 1}}checked=""{{end}}/>
+										<label>Unlisted</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input class="hidden" tabindex="0" name="repo_visibility" type="radio" value=0 {{if eq .Repository.Visibility 0}}checked=""{{end}}/>
+										<label>Private</label>
+									</div>
+								</div>
+							</div>
 						{{end}}
 
 						<div class="field">

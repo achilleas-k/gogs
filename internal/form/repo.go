@@ -81,15 +81,16 @@ func (f MigrateRepo) ParseRemoteAddr(user *db.User) (string, error) {
 }
 
 type RepoSetting struct {
-	RepoName      string `binding:"Required;AlphaDashDot;MaxSize(100)"`
-	Description   string `binding:"MaxSize(512)"`
-	Website       string `binding:"Url;MaxSize(100)"`
-	Branch        string
-	Interval      int
-	MirrorAddress string
-	Private       bool
-	Unlisted      bool
-	EnablePrune   bool
+	RepoName       string `binding:"Required;AlphaDashDot;MaxSize(100)"`
+	Description    string `binding:"MaxSize(512)"`
+	Website        string `binding:"Url;MaxSize(100)"`
+	Branch         string
+	Interval       int
+	MirrorAddress  string
+	Private        bool
+	RepoVisibility db.RepoVisibility
+	Unlisted       bool
+	EnablePrune    bool
 
 	// Advanced settings
 	EnableWiki            bool
