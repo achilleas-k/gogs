@@ -188,7 +188,7 @@ func newRepoAction(e Engine, doer, owner *User, repo *Repository) (err error) {
 		RepoID:       repo.ID,
 		RepoUserName: repo.Owner.Name,
 		RepoName:     repo.Name,
-		IsPrivate:    repo.IsPrivate,
+		IsPrivate:    repo.IsPrivate || repo.IsUnlisted,
 	})
 }
 
@@ -512,7 +512,7 @@ func CommitRepoAction(opts CommitRepoActionOptions) error {
 		RepoUserName: repo.MustOwner().Name,
 		RepoName:     repo.Name,
 		RefName:      refName,
-		IsPrivate:    repo.IsPrivate,
+		IsPrivate:    repo.IsPrivate || repo.IsUnlisted,
 	}
 
 	apiRepo := repo.APIFormat(nil)
